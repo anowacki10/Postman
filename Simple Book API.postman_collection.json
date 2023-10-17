@@ -1,0 +1,486 @@
+{
+	"info": {
+		"_postman_id": "7761f41a-dcc2-4d05-93a8-9f9f10ace6ec",
+		"name": "Simple Book API",
+		"description": "# Simple Books API\n\nThis API allows you to reserve a book.\n\nThe API is available at `https://simple-books-api.glitch.me`\n\n## Endpoints\n\n### Status\n\nGET `/status`\n\nReturns the status of the API.\n\n### List of books\n\nGET `/books`\n\nReturns a list of books.\n\nOptional query parameters:\n\n- type: fiction or non-fiction\n- limit: a number between 1 and 20.\n    \n\n### Get a single book\n\nGET `/books/:bookId`\n\nRetrieve detailed information about a book.\n\n### Submit an order\n\nPOST `/orders`\n\nAllows you to submit a new order. Requires authentication.\n\nThe request body needs to be in JSON format and include the following properties:\n\n- `bookId` - Integer - Required\n- `customerName` - String - Required\n    \n\nExample\n\n```\nPOST /orders/\nAuthorization: Bearer <YOUR TOKEN>\n{\n  \"bookId\": 1,\n  \"customerName\": \"John\"\n}\n\n ```\n\nThe response body will contain the order Id.\n\n### Get all orders\n\nGET `/orders`\n\nAllows you to view all orders. Requires authentication.\n\n### Get an order\n\nGET `/orders/:orderId`\n\nAllows you to view an existing order. Requires authentication.\n\n### Update an order\n\nPATCH `/orders/:orderId`\n\nUpdate an existing order. Requires authentication.\n\nThe request body needs to be in JSON format and allows you to update the following properties:\n\n- `customerName` - String\n    \n\nExample\n\n```\nPATCH /orders/PF6MflPDcuhWobZcgmJy5\nAuthorization: Bearer <YOUR TOKEN>\n{\n  \"customerName\": \"John\"\n}\n\n ```\n\n### Delete an order\n\nDELETE `/orders/:orderId`\n\nDelete an existing order. Requires authentication.\n\nThe request body needs to be empty.\n\nExample\n\n```\nDELETE /orders/PF6MflPDcuhWobZcgmJy5\nAuthorization: Bearer <YOUR TOKEN>\n\n ```\n\n## API Authentication\n\nTo submit or view an order, you need to register your API client.\n\nPOST `/api-clients/`\n\nThe request body needs to be in JSON format and include the following properties:\n\n- `clientName` - String\n- `clientEmail` - String\n    \n\nExample\n\n```\n{\n   \"clientName\": \"Postman\",\n   \"clientEmail\": \"valentin@example.com\"\n}\n\n ```\n\nThe response body will contain the access token. The access token is valid for 7 days.\n\n**Possible errors**\n\nStatus code 409 - \"API client already registered.\" Try changing the values for `clientEmail` and `clientName` to something else.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29441403",
+		"_collection_link": "https://www.postman.com/warped-zodiac-471013/workspace/public-collection/collection/29441403-7761f41a-dcc2-4d05-93a8-9f9f10ace6ec?action=share&source=collection_link&creator=29441403"
+	},
+	"item": [
+		{
+			"name": "API Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// test 1\r",
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"// response initialization\r",
+							"const response1 = pm.response.json();\r",
+							"\r",
+							"// test2 request should status equals OK\r",
+							"pm.test(\"Test name\",() => {\r",
+							"    pm.expect(response1.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"// show response1 in console\r",
+							"console.log(response1.status); // one solution to log response\r",
+							"console.log(response1['status']); // another solution to log response\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/status",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List of books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// test Status code\r",
+							"\r",
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"const nonFictionBooks = response.filter((book) => book.available == true);\r",
+							"\r",
+							"console.log(nonFictionBooks[0].id);\r",
+							"\r",
+							"pm.globals.set(\"bookID\", nonFictionBooks[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books?limit=4",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "non-fiction",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get Single book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// test Status code\r",
+							"\r",
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/:bookId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						":bookId"
+					],
+					"variable": [
+						{
+							"key": "bookId",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register API client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Status code should response 201 created for new client\r",
+							"\r",
+							"pm.test(\"Status code is 201\", ()=> {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientName\": \"QArtur\",\r\n    \"clientEmail\": \"11r@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api-clients",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api-clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order a book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Status code should response 201 Created if book is available\r",
+							"pm.test(\"Status code is 201\", ()=> {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accesToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"bookId\": 3,\r\n  \"customerName\": \"{{$randomFullName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orders check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// test 1\r",
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accesToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order review by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// test 1\r",
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accesToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/orders/:orderId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderdId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit an order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// test 1\r",
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accesToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerName\": \"Johny<3\"\r\n  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders/:orderId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderdId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// test 1\r",
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accesToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerName\": \"Jenny\"\r\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders/:orderId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderdId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accesToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://simple-books-api.glitch.me",
+			"type": "string"
+		},
+		{
+			"key": "accesToken",
+			"value": "79563a6d379777f83abf6dc113bcb80ad7dd65fc2f86f67d8215aa5fe4ebd36f",
+			"type": "string"
+		}
+	]
+}
