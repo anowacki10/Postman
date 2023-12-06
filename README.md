@@ -1,5 +1,5 @@
 ## Postman 📚
-<pre>
+<pre> 
 ◻️ Click on following links to get online version of API test 🔎 
   or
 ◻️ Clone the repository locally and run in Postman to check out API test 
@@ -11,30 +11,37 @@
 
 ## Overview 🧐
 
-### Requests 👇🏼
-<pre>Requests are organized in a order that allows easily automate testing or manually execute collection in Postman runs.</pre>
+### • Requests 👇🏼
+ Requests are organized in a order that allows easily automate testing or manually execute collection in Postman runs.  
+ <br></br>
 ![requests](https://github.com/anowacki10/Postman/blob/main/img/requests.png)
 
-### Response to Variables 👇🏼
-<pre>Responses body are automatically set as variables in JavaScript to allows subsequent requests to be execute</pre>
+### • Response to Variables 👇🏼
+ Responses body are automatically set as variables in JavaScript to allows subsequent requests to be execute  
+ <br></br>
 ![set](https://github.com/anowacki10/Postman/blob/main/img/set.png)
 
-### Variables 👇🏼
-<pre>Some of variables are set as Initial, some are seting up during colection execution</pre>
+### • Variables 👇🏼
+ Some of variables are set as Initial, some are seting up during colection execution  
+ <br></br>
 ![variables](https://github.com/anowacki10/Postman/blob/main/img/variables.png)
 
-### Tests 👇🏼
-<pre>JavaScript test containg simple status code assertion, checking changes made by PATH or PUT requests</pre>
+### • Tests 👇🏼
+ JavaScript test containg simple status code assertion, checking changes made by PATH or PUT requests  
+ <br></br>
 ![test](https://github.com/anowacki10/Postman/blob/main/img/test.png)
 
-### Negative Test 👇🏼
-<pre>Negative test should respond a Client Error, while tests should pass </pre>
+### • Negative Test 👇🏼
+ Negative test should respond a Client Error, while tests should pass  
+ <br></br>
 ![negative](https://github.com/anowacki10/Postman/blob/main/img/negative.png)
 
-### Params avoid Hard Coding 👇🏼
+### • Params avoid Hard Coding 👇🏼
+<br></br>
 ![params](https://github.com/anowacki10/Postman/blob/main/img/params.png)
 
-### Postman Runs 👇🏼
-<pre> Manual colection execution using Postman Run, Automated execution you can find in Jenkins repo on my profile</pre>
+### • Postman Runs 👇🏼
+<br></br>
+  Manual colection execution using Postman Run, Automated execution you can find in Jenkins repo on my profile  
 ![run](https://github.com/anowacki10/Postman/blob/main/img/run.png)
 
