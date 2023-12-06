@@ -41,7 +41,8 @@
 ![params](https://github.com/anowacki10/Postman/blob/main/img/params.png)
 
 ### • Postman Runs 👇🏼
-<br></br>
   Manual colection execution using Postman Run, Automated execution you can find in Jenkins repo on my profile  
+  <br></br>
+
 ![run](https://github.com/anowacki10/Postman/blob/main/img/run.png)
 
