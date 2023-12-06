@@ -41,8 +41,13 @@
 ![params](https://github.com/anowacki10/Postman/blob/main/img/params.png)
 
 ### • Postman Runs 👇🏼
-  Manual colection execution using Postman Run, Automated execution you can find in Jenkins repo on my profile  
+  Manual colection execution using Postman Run.  
   <br></br>
 
 ![run](https://github.com/anowacki10/Postman/blob/main/img/run.png)
+
+### • CI/CD Jenkins Pipeline 👇🏼
+  Automatic execution of Postman collection using Jenkins File and Newman 
+<br></br>
+![run](https://github.com/anowacki10/Postman/blob/main/img/jenkins.gif)
 
